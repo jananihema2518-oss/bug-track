@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BugTrack – Smart Bug Tracking System</title>
+  <meta name="description" content="A professional software bug and issue tracking dashboard built with HTML5, CSS3, and Vanilla JavaScript.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- App Container -->
+  <div class="app-layout">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-logo">
+          <svg class="icon brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect width="8" height="14" x="8" y="5" rx="4"/>
+            <path d="m19 7-3 2"/>
+            <path d="m5 7 3 2"/>
+            <path d="m19 19-3-2"/>
+            <path d="m5 19 3-2"/>
+            <path d="M20 13h-4"/>
+            <path d="M4 13h4"/>
+            <path d="m10 4 1 1"/>
+            <path d="m14 4-1 1"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">BugTrack</span>
+          <span class="brand-badge">Portfolio v2.4</span>
+        </div>
+        <button class="icon-btn mobile-close-btn" id="sidebarCloseBtn" aria-label="Close navigation sidebar">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6 6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Main Navigation</div>
+        <button class="nav-link active" data-view="dashboard">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect width="7" height="9" x="3" y="3" rx="1"/>
+            <rect width="7" height="5" x="14" y="3" rx="1"/>
+            <rect width="7" height="9" x="14" y="12" rx="1"/>
+            <rect width="7" height="5" x="3" y="16" rx="1"/>
+          </svg>
+          <span>Dashboard</span>
+        </button>
+
+        <button class="nav-link" data-view="bugs">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 2v4M8 2v4M3 10h18"/>
+            <rect width="18" height="18" x="3" y="4" rx="2"/>
+            <path d="m9 16 2 2 4-4"/>
+          </svg>
+          <span>All Bug Reports</span>
+          <span class="nav-badge" id="navTotalBugsBadge">0</span>
+        </button>
+
+        <button class="nav-link" data-view="analytics">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 3v18h18"/>
+            <path d="m19 9-5 5-4-4-3 3"/>
+          </svg>
+          <span>Analytics & Charts</span>
+        </button>
+
+        <button class="nav-link" data-view="settings">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+          <span>Data & Settings</span>
+        </button>
+      </nav>
+
+      <!-- Sidebar Storage & System Info Card -->
+      <div class="sidebar-widget">
+        <div class="widget-header">
+          <span class="widget-title">Browser Storage</span>
+          <span class="widget-pill" id="storagePercentLabel">Active</span>
+        </div>
+        <p class="widget-desc">Persistent LocalStorage data sandbox.</p>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" id="storageProgressBar" style="width: 15%;"></div>
+        </div>
+        <div class="widget-footer-text" id="storageFootprintText">Checking storage...</div>
+      </div>
+
+      <!-- User Profile / Student Info -->
+      <div class="sidebar-profile">
+        <div class="profile-avatar">QA</div>
+        <div class="profile-details">
+          <span class="profile-name">Lead QA Engineer</span>
+          <span class="profile-role">Computer Science Portfolio</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+      
+      <!-- Top Application Header -->
+      <header class="top-header">
+        <div class="header-left">
+          <button class="icon-btn mobile-menu-toggle" id="sidebarOpenBtn" aria-label="Open Navigation Menu">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="4" x2="20" y1="12" y2="12"/>
+              <line x1="4" x2="20" y1="6" y2="6"/>
+              <line x1="4" x2="20" y1="18" y2="18"/>
+            </svg>
+          </button>
+          
+          <div class="header-title-wrap">
+            <h1 class="header-title" id="pageHeaderTitle">Dashboard Overview</h1>
+            <span class="header-subtitle" id="pageHeaderSubtitle">Real-time software quality metrics & telemetry</span>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <!-- Global Search trigger -->
+          <div class="header-search">
+            <svg class="icon search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="m21 21-4.3-4.3"/>
+            </svg>
+            <input type="text" id="globalQuickSearch" placeholder="Quick search bugs (Ctrl + K)..." autocomplete="off">
+            <kbd class="kbd-shortcut">Ctrl K</kbd>
+          </div>
+
+          <!-- Quick Action: Report Bug -->
+          <button class="btn btn-primary" id="openCreateBugBtn">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+            <span>+ Report Bug</span>
+          </button>
+
+          <!-- Theme Toggle Button -->
+          <button class="icon-btn" id="themeToggleBtn" title="Switch Theme (Dark/Light)" aria-label="Toggle Light/Dark Theme">
+            <svg class="icon sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+            </svg>
+            <svg class="icon moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- View Containers -->
+      <main class="content-body">
+        
+        <!-- ================= VIEW 1: DASHBOARD ================= -->
+        <section class="view-panel active" id="view-dashboard">
+          
+          <!-- KPI Statistics Cards -->
+          <div class="stats-grid">
+            <div class="stat-card" data-filter-trigger="all">
+              <div class="stat-header">
+                <span class="stat-label">Total Bugs</span>
+                <span class="stat-icon-wrap icon-primary">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect width="8" height="14" x="8" y="5" rx="4"/>
+                    <path d="m19 7-3 2M5 7 3 2M19 19-3-2M5 19 3-2M20 13h-4M4 13h4M10 4 1 1M14 4-1 1"/>
+                  </svg>
+                </span>
+              </div>
+              <div class="stat-value" id="statTotalBugs">0</div>
+              <div class="stat-footer">
+                <span class="stat-badge badge-neutral">All recorded tickets</span>
+                <span class="stat-action-link" id="viewAllBugsFromStat">View all &rarr;</span>
+              </div>
+            </div>
+
+            <div class="stat-card" data-filter-trigger="Open">
+              <div class="stat-header">
+                <span class="stat-label">Open Bugs</span>
+                <span class="stat-icon-wrap icon-cyan">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" x2="12" y1="8" y2="12"/>
+                    <line x1="12" x2="12.01" y1="16" y2="16"/>
+                  </svg>
+                </span>
+              </div>
+              <div class="stat-value text-cyan" id="statOpenBugs">0</div>
+              <div class="stat-footer">
+                <span class="stat-badge badge-cyan" id="statOpenPercent">0% active</span>
+                <span class="stat-subtext">Needs triage</span>
+              </div>
+            </div>
+
+            <div class="stat-card" data-filter-trigger="In Progress">
+              <div class="stat-header">
+                <span class="stat-label">In Progress</span>
+                <span class="stat-icon-wrap icon-amber">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                </span>
+              </div>
+              <div class="stat-value text-amber" id="statInProgressBugs">0</div>
+              <div class="stat-footer">
+                <span class="stat-badge badge-amber" id="statInProgressPercent">0% WIP</span>
+                <span class="stat-subtext">Under active fix</span>
+              </div>
+            </div>
+
+            <div class="stat-card" data-filter-trigger="Resolved">
+              <div class="stat-header">
+                <span class="stat-label">Resolved Bugs</span>
+                <span class="stat-icon-wrap icon-emerald">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                  </svg>
+                </span>
+              </div>
+              <div class="stat-value text-emerald" id="statResolvedBugs">0</div>
+              <div class="stat-footer">
+                <span class="stat-badge badge-emerald" id="statResolvedPercent">0% rate</span>
+                <span class="stat-subtext">Fixed & verified</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dashboard Charts & Breakdown Row -->
+          <div class="dashboard-grid-row">
+            
+            <!-- Severity Distribution Card -->
+            <div class="dashboard-card chart-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Severity Breakdown</h3>
+                  <p class="card-subtitle">Distribution of bugs by engineering impact</p>
+                </div>
+                <span class="pill-tag">Live Metrics</span>
+              </div>
+              <div class="card-body">
+                <div class="severity-bars" id="severityBarsContainer">
+                  <!-- Rendered dynamically by script.js -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Status Distribution Donut Chart Card -->
+            <div class="dashboard-card chart-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Status Pipeline</h3>
+                  <p class="card-subtitle">Workflow resolution tracking</p>
+                </div>
+                <span class="pill-tag" id="resolutionPillTag">0% Resolved</span>
+              </div>
+              <div class="card-body donut-chart-body">
+                <div class="donut-chart-wrap" id="donutChartContainer">
+                  <svg class="donut-svg" viewBox="0 0 120 120" id="donutSvg">
+                    <circle class="donut-bg" cx="60" cy="60" r="45"/>
+                    <circle class="donut-segment segment-resolved" cx="60" cy="60" r="45" id="donutResolvedSeg"/>
+                    <circle class="donut-segment segment-progress" cx="60" cy="60" r="45" id="donutProgressSeg"/>
+                    <circle class="donut-segment segment-open" cx="60" cy="60" r="45" id="donutOpenSeg"/>
+                  </svg>
+                  <div class="donut-center-info">
+                    <span class="donut-center-num" id="donutCenterTotal">0</span>
+                    <span class="donut-center-label">Total Bugs</span>
+                  </div>
+                </div>
+                <div class="donut-legend">
+                  <div class="legend-item">
+                    <span class="legend-dot dot-cyan"></span>
+                    <span class="legend-label">Open:</span>
+                    <strong class="legend-val" id="legendOpenVal">0</strong>
+                  </div>
+                  <div class="legend-item">
+                    <span class="legend-dot dot-amber"></span>
+                    <span class="legend-label">In Progress:</span>
+                    <strong class="legend-val" id="legendProgressVal">0</strong>
+                  </div>
+                  <div class="legend-item">
+                    <span class="legend-dot dot-emerald"></span>
+                    <span class="legend-label">Resolved:</span>
+                    <strong class="legend-val" id="legendResolvedVal">0</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Critical Bugs Alert & Recent Reports Row -->
+          <div class="dashboard-grid-row">
+            
+            <!-- Critical Watchlist -->
+            <div class="dashboard-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title text-critical-title">
+                    <svg class="icon inline-alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/>
+                      <line x1="12" x2="12" y1="8" y2="12"/>
+                      <line x1="12" x2="12.01" y1="16" y2="16"/>
+                    </svg>
+                    Critical & High Priority Watchlist
+                  </h3>
+                  <p class="card-subtitle">Tickets needing urgent developer intervention</p>
+                </div>
+                <span class="badge badge-critical" id="criticalCountBadge">0 Critical</span>
+              </div>
+              <div class="card-body">
+                <div class="critical-list" id="criticalWatchlistContainer">
+                  <!-- Rendered dynamically -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Recent Reports Table Preview -->
+            <div class="dashboard-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Recently Reported Bugs</h3>
+                  <p class="card-subtitle">Latest bug submissions in system</p>
+                </div>
+                <button class="btn btn-secondary btn-sm" id="dashboardViewAllBtn">View All Bugs &rarr;</button>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Severity</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="recentBugsTableBody">
+                      <!-- Rendered dynamically -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ================= VIEW 2: ALL BUGS MANAGEMENT ================= -->
+        <section class="view-panel" id="view-bugs">
+          
+          <!-- Filter and Search Toolbar -->
+          <div class="toolbar-card">
+            
+            <div class="toolbar-row-top">
+              <!-- Search Box -->
+              <div class="search-input-wrap">
+                <svg class="icon search-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"/>
+                  <path d="m21 21-4.3-4.3"/>
+                </svg>
+                <input type="text" id="bugSearchInput" class="form-control" placeholder="Search by bug title, ID, reporter, or environment..." autocomplete="off">
+                <button class="clear-search-btn hidden" id="clearSearchBtn" title="Clear search text">&times;</button>
+              </div>
+
+              <!-- Action buttons -->
+              <div class="toolbar-actions">
+                <!-- View Toggle: Table vs Cards -->
+                <div class="view-toggle-group">
+                  <button class="toggle-btn active" id="viewModeTableBtn" title="Table View">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="3" x2="21" y1="6" y2="6"/>
+                      <line x1="3" x2="21" y1="12" y2="12"/>
+                      <line x1="3" x2="21" y1="18" y2="18"/>
+                    </svg>
+                  </button>
+                  <button class="toggle-btn" id="viewModeGridBtn" title="Card Grid View">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect width="7" height="7" x="3" y="3" rx="1"/>
+                      <rect width="7" height="7" x="14" y="3" rx="1"/>
+                      <rect width="7" height="7" x="14" y="14" rx="1"/>
+                      <rect width="7" height="7" x="3" y="14" rx="1"/>
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- Export CSV Button -->
+                <button class="btn btn-secondary" id="exportCsvBtn" title="Export current list to CSV file">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" x2="12" y1="15" y2="3"/>
+                  </svg>
+                  <span>Export CSV</span>
+                </button>
+
+                <!-- New Bug button -->
+                <button class="btn btn-primary" id="tableCreateBugBtn">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 5v14M5 12h14"/>
+                  </svg>
+                  <span>Report Bug</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Filter Dropdowns Row -->
+            <div class="toolbar-row-bottom">
+              <div class="filters-wrap">
+                
+                <!-- Status Filter -->
+                <div class="filter-group">
+                  <label for="filterStatus" class="filter-label">Status:</label>
+                  <select id="filterStatus" class="form-select filter-select">
+                    <option value="all">All Statuses</option>
+                    <option value="Open">Open</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Resolved">Resolved</option>
+                  </select>
+                </div>
+
+                <!-- Severity Filter -->
+                <div class="filter-group">
+                  <label for="filterSeverity" class="filter-label">Severity:</label>
+                  <select id="filterSeverity" class="form-select filter-select">
+                    <option value="all">All Severities</option>
+                    <option value="Critical">Critical</option>
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                  </select>
+                </div>
+
+                <!-- Priority Filter -->
+                <div class="filter-group">
+                  <label for="filterPriority" class="filter-label">Priority:</label>
+                  <select id="filterPriority" class="form-select filter-select">
+                    <option value="all">All Priorities</option>
+                    <option value="Urgent">Urgent</option>
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                  </select>
+                </div>
+
+                <!-- Sort Filter -->
+                <div class="filter-group">
+                  <label for="filterSort" class="filter-label">Sort By:</label>
+                  <select id="filterSort" class="form-select filter-select">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="severity-desc">Severity (High &rarr; Low)</option>
+                    <option value="priority-desc">Priority (Urgent &rarr; Low)</option>
+                    <option value="title-asc">Title (A &rarr; Z)</option>
+                  </select>
+                </div>
+
+                <!-- Reset Filters Button -->
+                <button class="btn btn-ghost btn-sm" id="resetFiltersBtn" title="Reset all search and dropdown filters">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                    <path d="M3 3v5h5"/>
+                  </svg>
+                  <span>Reset Filters</span>
+                </button>
+              </div>
+
+              <!-- Results counter -->
+              <div class="results-counter" id="bugsResultCounter">
+                Showing 0 of 0 bugs
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bugs Content Area (Table View or Card Grid View) -->
+          <div class="bugs-container">
+            
+            <!-- Table View Container -->
+            <div class="table-card" id="bugsTableViewWrap">
+              <div class="table-responsive">
+                <table class="data-table" id="allBugsTable">
+                  <thead>
+                    <tr>
+                      <th style="width: 110px;">Bug ID</th>
+                      <th>Title & Summary</th>
+                      <th style="width: 120px;">Severity</th>
+                      <th style="width: 120px;">Priority</th>
+                      <th style="width: 140px;">Status</th>
+                      <th style="width: 130px;">Reporter</th>
+                      <th style="width: 130px;">Updated</th>
+                      <th style="width: 140px; text-align: right;">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="allBugsTableBody">
+                    <!-- Populated dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Card Grid View Container -->
+            <div class="bugs-grid hidden" id="bugsGridViewWrap">
+              <!-- Cards rendered dynamically -->
+            </div>
+
+            <!-- Empty State Display -->
+            <div class="empty-state-card hidden" id="bugsEmptyState">
+              <div class="empty-icon-wrap">
+                <svg class="icon empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="11" cy="11" r="8"/>
+                  <path d="m21 21-4.3-4.3"/>
+                  <path d="m8 11 6 0"/>
+                </svg>
+              </div>
+              <h3 class="empty-title" id="emptyStateTitle">No bug reports match your filter</h3>
+              <p class="empty-desc" id="emptyStateDesc">Try adjusting your search criteria, clearing active filters, or filing a new bug report.</p>
+              <div class="empty-actions">
+                <button class="btn btn-secondary" id="emptyResetFilterBtn">Clear All Filters</button>
+                <button class="btn btn-primary" id="emptyCreateBugBtn">+ Report New Bug</button>
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ================= VIEW 3: ANALYTICS & INSIGHTS ================= -->
+        <section class="view-panel" id="view-analytics">
+          
+          <div class="analytics-header-banner">
+            <div>
+              <h2 class="banner-title">Software Quality Analytics & Telemetry</h2>
+              <p class="banner-desc">Comprehensive metrics to evaluate application stability, resolution turnaround, and triage readiness.</p>
+            </div>
+            <button class="btn btn-secondary btn-sm" id="analyticsExportCsvBtn">Export Audit Data (CSV)</button>
+          </div>
+
+          <div class="analytics-grid">
+            
+            <!-- Metric Card 1: Resolution Rate -->
+            <div class="dashboard-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Resolution Performance</h3>
+                  <p class="card-subtitle">Proportion of bugs successfully resolved</p>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="metric-highlight-wrap">
+                  <div class="big-metric-num text-emerald" id="analyticsResolutionRate">0%</div>
+                  <div class="metric-bar-outer">
+                    <div class="metric-bar-inner bg-emerald" id="analyticsResolutionBar" style="width: 0%;"></div>
+                  </div>
+                  <p class="metric-note" id="analyticsResolutionNote">Calculating triage resolution statistics...</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Metric Card 2: Severity Balance -->
+            <div class="dashboard-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Severity Severity Profile</h3>
+                  <p class="card-subtitle">Volume of critical vs minor defects</p>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="breakdown-list" id="analyticsSeverityList">
+                  <!-- Generated by script -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Metric Card 3: Priority Pipeline -->
+            <div class="dashboard-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Priority Pipeline</h3>
+                  <p class="card-subtitle">Bug urgency across engineering backlogs</p>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="breakdown-list" id="analyticsPriorityList">
+                  <!-- Generated by script -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Metric Card 4: Component / Environment Distribution -->
+            <div class="dashboard-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Environment & Components</h3>
+                  <p class="card-subtitle">Where defects are being caught</p>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="breakdown-list" id="analyticsEnvironmentList">
+                  <!-- Generated by script -->
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Architecture & Technology Highlight Card -->
+          <div class="dashboard-card mt-6">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Engineering Architecture & Portfolio Highlights</h3>
+                <p class="card-subtitle">Technical specifications implemented in this application</p>
+              </div>
+              <span class="badge badge-primary">CS Portfolio Showcase</span>
+            </div>
+            <div class="card-body">
+              <div class="architecture-features-grid">
+                <div class="arch-feature">
+                  <div class="arch-icon-wrap">💾</div>
+                  <h4 class="arch-title">LocalStorage Persistence</h4>
+                  <p class="arch-text">All bugs, theme choices, and application state persist in the client sandbox via JSON serialization.</p>
+                </div>
+                <div class="arch-feature">
+                  <div class="arch-icon-wrap">🛡️</div>
+                  <h4 class="arch-title">XSS Attack Prevention</h4>
+                  <p class="arch-text">All user-entered strings pass through rigorous HTML entity escaping prior to innerHTML injection.</p>
+                </div>
+                <div class="arch-feature">
+                  <div class="arch-icon-wrap">⚡</div>
+                  <h4 class="arch-title">Zero External Dependencies</h4>
+                  <p class="arch-text">Clean, modular Vanilla JavaScript and CSS3 custom properties with no heavy bloated runtime frameworks.</p>
+                </div>
+                <div class="arch-feature">
+                  <div class="arch-icon-wrap">📊</div>
+                  <h4 class="arch-title">Dynamic SVG Visualizations</h4>
+                  <p class="arch-text">Real-time reactive donut and bar charts rendered directly via responsive SVG and CSS transitions.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+
+        <!-- ================= VIEW 4: DATA & SETTINGS ================= -->
+        <section class="view-panel" id="view-settings">
+          <div class="settings-grid">
+            
+            <!-- Data Management Card -->
+            <div class="dashboard-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Storage & Data Management</h3>
+                  <p class="card-subtitle">Manage client-side LocalStorage database records</p>
+                </div>
+              </div>
+              <div class="card-body settings-options">
+                
+                <div class="setting-item">
+                  <div class="setting-info">
+                    <h4 class="setting-label">Export Bug Reports to CSV</h4>
+                    <p class="setting-desc">Download all bug tickets as a formatted spreadsheet CSV file for reporting or Excel analysis.</p>
+                  </div>
+                  <button class="btn btn-secondary" id="settingsExportCsvBtn">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                      <polyline points="7 10 12 15 17 10"/>
+                      <line x1="12" x2="12" y1="15" y2="3"/>
+                    </svg>
+                    <span>Download CSV</span>
+                  </button>
+                </div>
+
+                <div class="setting-item">
+                  <div class="setting-info">
+                    <h4 class="setting-label">Export Backup (JSON)</h4>
+                    <p class="setting-desc">Export the entire bugs array as a valid JSON file for safekeeping or transfer.</p>
+                  </div>
+                  <button class="btn btn-secondary" id="settingsExportJsonBtn">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                      <polyline points="14 2 14 8 20 8"/>
+                      <line x1="16" x2="8" y1="13" y2="13"/>
+                      <line x1="16" x2="8" y1="17" y2="17"/>
+                    </svg>
+                    <span>Export JSON</span>
+                  </button>
+                </div>
+
+                <div class="setting-item">
+                  <div class="setting-info">
+                    <h4 class="setting-label">Import Backup (JSON)</h4>
+                    <p class="setting-desc">Restore or append bug reports from a previously exported JSON backup file.</p>
+                  </div>
+                  <div>
+                    <input type="file" id="importJsonFileInput" accept=".json" class="hidden">
+                    <button class="btn btn-secondary" id="settingsImportJsonBtn">
+                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="17 8 12 3 7 8"/>
+                        <line x1="12" x2="12" y1="3" y2="15"/>
+                      </svg>
+                      <span>Import JSON</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="setting-item">
+                  <div class="setting-info">
+                    <h4 class="setting-label">Reload Default Demo Data</h4>
+                    <p class="setting-desc">Reset the database with realistic sample bugs representing real-world production defects.</p>
+                  </div>
+                  <button class="btn btn-secondary" id="settingsReloadDemoBtn">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                      <path d="M3 3v5h5"/>
+                    </svg>
+                    <span>Load Demo Bugs</span>
+                  </button>
+                </div>
+
+                <div class="setting-item border-danger">
+                  <div class="setting-info">
+                    <h4 class="setting-label text-critical">Clear All Bug Data</h4>
+                    <p class="setting-desc">Permanently wipe all tickets from this browser's LocalStorage. This action cannot be undone.</p>
+                  </div>
+                  <button class="btn btn-danger" id="settingsClearAllBtn">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M3 6h18"/>
+                      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+                      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                    </svg>
+                    <span>Clear Everything</span>
+                  </button>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- About / Portfolio Documentation -->
+            <div class="dashboard-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Portfolio Project Notes</h3>
+                  <p class="card-subtitle">Technical specifications for recruiters & interviewers</p>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="portfolio-notes">
+                  <div class="note-box">
+                    <strong>Local Data Scope:</strong>
+                    <p>This web application is a client-side frontend project designed for testing and portfolio showcase. All data is persisted inside this specific browser instance's <code>window.localStorage</code> sandbox and is not synchronized to an external cloud database or shared across different browsers.</p>
+                  </div>
+
+                  <div class="tech-spec-table">
+                    <div class="spec-row">
+                      <span class="spec-name">Stack</span>
+                      <span class="spec-val">HTML5, CSS3 (Custom Variables), Vanilla JavaScript (ES6+)</span>
+                    </div>
+                    <div class="spec-row">
+                      <span class="spec-name">Persistence</span>
+                      <span class="spec-val">LocalStorage key: <code>bugtrack_bugs_v1</code></span>
+                    </div>
+                    <div class="spec-row">
+                      <span class="spec-name">Data Sanitization</span>
+                      <span class="spec-val">Custom HTML entity encoder to block XSS execution</span>
+                    </div>
+                    <div class="spec-row">
+                      <span class="spec-name">Visualizations</span>
+                      <span class="spec-val">Dynamic SVG stroke-dasharray donuts & flex meters</span>
+                    </div>
+                    <div class="spec-row">
+                      <span class="spec-name">Design Theme</span>
+                      <span class="spec-val">Dark Navy / Electric Blue with Light Mode support</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </main>
+
+      <!-- Footer -->
+      <footer class="app-footer">
+        <div class="footer-left">
+          <span>&copy; 2026 <strong>BugTrack</strong> – Smart Bug Tracking System</span>
+          <span class="footer-sep">&bull;</span>
+          <span>Computer Science Engineering Portfolio Project</span>
+        </div>
+        <div class="footer-right">
+          <span>Client-Side LocalStorage Sandbox</span>
+          <span class="footer-sep">&bull;</span>
+          <a href="#view-settings" id="footerDataLink">Data Settings</a>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- ================= MODALS ================= -->
+
+  <!-- 1. CREATE / EDIT BUG MODAL -->
+  <div class="modal-overlay hidden" id="bugFormModal">
+    <div class="modal-box modal-lg" role="dialog" aria-labelledby="modalFormTitle" aria-modal="true">
+      
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <div class="modal-icon-badge" id="modalFormIcon">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+          </div>
+          <div>
+            <h2 class="modal-title" id="modalFormTitle">Report New Bug</h2>
+            <p class="modal-subtitle" id="modalFormSubtitle">Fill in the defect report details for developer triage.</p>
+          </div>
+        </div>
+        <button class="icon-btn modal-close-btn" id="closeFormModalBtn" aria-label="Close dialog">&times;</button>
+      </div>
+
+      <form id="bugReportForm" novalidate>
+        <div class="modal-body">
+          
+          <!-- Hidden ID input for Edit mode -->
+          <input type="hidden" id="formBugId">
+
+          <!-- Alert banner for errors -->
+          <div class="form-alert hidden" id="formAlertBanner">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" x2="12" y1="8" y2="12"/>
+              <line x1="12" x2="12.01" y1="16" y2="16"/>
+            </svg>
+            <span id="formAlertMessage">Please correct the highlighted fields before submitting.</span>
+          </div>
+
+          <!-- Title Field -->
+          <div class="form-group">
+            <label for="formTitle" class="form-label required">Bug Summary / Title</label>
+            <input type="text" id="formTitle" class="form-control" placeholder="e.g. OAuth callback fails on Safari 17 when redirecting..." maxlength="120" required>
+            <div class="field-meta">
+              <span class="field-error" id="titleError"></span>
+              <span class="field-counter" id="titleCharCount">0 / 120</span>
+            </div>
+          </div>
+
+          <!-- Metadata Grid: Severity, Priority, Status, Environment -->
+          <div class="form-row">
+            
+            <div class="form-group col-3">
+              <label for="formSeverity" class="form-label required">Severity</label>
+              <select id="formSeverity" class="form-select" required>
+                <option value="Low">Low – Cosmetic issue</option>
+                <option value="Medium" selected>Medium – Minor defect</option>
+                <option value="High">High – Major functionality</option>
+                <option value="Critical">Critical – System crash / Blocker</option>
+              </select>
+              <span class="field-error" id="severityError"></span>
+            </div>
+
+            <div class="form-group col-3">
+              <label for="formPriority" class="form-label required">Priority</label>
+              <select id="formPriority" class="form-select" required>
+                <option value="Low">Low – Whenever possible</option>
+                <option value="Medium" selected>Medium – Regular sprint</option>
+                <option value="High">High – Urgent attention</option>
+                <option value="Urgent">Urgent – Immediate hotfix</option>
+              </select>
+              <span class="field-error" id="priorityError"></span>
+            </div>
+
+            <div class="form-group col-3">
+              <label for="formStatus" class="form-label required">Status</label>
+              <select id="formStatus" class="form-select" required>
+                <option value="Open" selected>Open (New)</option>
+                <option value="In Progress">In Progress (WIP)</option>
+                <option value="Resolved">Resolved (Fixed)</option>
+              </select>
+              <span class="field-error" id="statusError"></span>
+            </div>
+
+            <div class="form-group col-3">
+              <label for="formEnvironment" class="form-label">Environment / Tag</label>
+              <select id="formEnvironment" class="form-select">
+                <option value="Production">Production</option>
+                <option value="Staging">Staging</option>
+                <option value="Frontend" selected>Frontend</option>
+                <option value="Backend">Backend / API</option>
+                <option value="Mobile App">Mobile App</option>
+                <option value="Database">Database</option>
+              </select>
+            </div>
+
+          </div>
+
+          <!-- Reporter Name -->
+          <div class="form-row">
+            <div class="form-group col-6">
+              <label for="formReporter" class="form-label required">Reporter Name</label>
+              <input type="text" id="formReporter" class="form-control" placeholder="e.g. Alex Chen (QA Team)" required>
+              <span class="field-error" id="reporterError"></span>
+            </div>
+            <div class="form-group col-6">
+              <label for="formAssignedTo" class="form-label">Assigned Developer</label>
+              <input type="text" id="formAssignedTo" class="form-control" placeholder="e.g. Unassigned, or Dev Name">
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="form-group">
+            <label for="formDescription" class="form-label required">Bug Description</label>
+            <textarea id="formDescription" class="form-textarea" rows="3" placeholder="Provide a concise description of what went wrong, including affected components and context..." required></textarea>
+            <span class="field-error" id="descError"></span>
+          </div>
+
+          <!-- Steps to Reproduce -->
+          <div class="form-group">
+            <label for="formSteps" class="form-label required">Steps to Reproduce</label>
+            <textarea id="formSteps" class="form-textarea" rows="4" placeholder="1. Navigate to the login view&#10;2. Click on 'Sign in with Google'&#10;3. Observe authorization redirect timeout..." required></textarea>
+            <span class="field-error" id="stepsError"></span>
+          </div>
+
+          <!-- Expected vs Actual Result Grid -->
+          <div class="form-row">
+            <div class="form-group col-6">
+              <label for="formExpected" class="form-label required">Expected Behavior</label>
+              <textarea id="formExpected" class="form-textarea" rows="3" placeholder="What should have happened according to specifications..." required></textarea>
+              <span class="field-error" id="expectedError"></span>
+            </div>
+
+            <div class="form-group col-6">
+              <label for="formActual" class="form-label required">Actual Observed Behavior</label>
+              <textarea id="formActual" class="form-textarea" rows="3" placeholder="What actually occurred, including any error logs or broken states..." required></textarea>
+              <span class="field-error" id="actualError"></span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="cancelFormModalBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveBugReportBtn">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span id="saveBugBtnText">Save Bug Report</span>
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+
+  <!-- 2. BUG DETAILS MODAL -->
+  <div class="modal-overlay hidden" id="bugDetailModal">
+    <div class="modal-box modal-lg" role="dialog" aria-labelledby="detailModalTitle" aria-modal="true">
+      
+      <div class="modal-header">
+        <div class="detail-header-meta">
+          <span class="bug-id-tag" id="detailBugId">BUG-1001</span>
+          <div class="badge-cluster" id="detailBadges">
+            <!-- Dynamic Badges -->
+          </div>
+        </div>
+        <button class="icon-btn modal-close-btn" id="closeDetailModalBtn" aria-label="Close details dialog">&times;</button>
+      </div>
+
+      <div class="modal-body detail-modal-body">
+        
+        <!-- Bug Title -->
+        <h2 class="detail-bug-title" id="detailBugTitle">Loading bug...</h2>
+
+        <!-- Quick Status Switch Bar -->
+        <div class="quick-status-bar">
+          <span class="status-bar-label">Current Lifecycle Status:</span>
+          <div class="status-pill-switch" id="detailStatusSwitch">
+            <button type="button" class="status-toggle-pill" data-status="Open">Open</button>
+            <button type="button" class="status-toggle-pill" data-status="In Progress">In Progress</button>
+            <button type="button" class="status-toggle-pill" data-status="Resolved">Resolved</button>
+          </div>
+        </div>
+
+        <!-- Meta info grid -->
+        <div class="detail-meta-grid">
+          <div class="meta-item">
+            <span class="meta-item-label">Environment</span>
+            <span class="meta-item-val" id="detailEnvironment">-</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-item-label">Reported By</span>
+            <span class="meta-item-val" id="detailReporter">-</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-item-label">Assigned To</span>
+            <span class="meta-item-val" id="detailAssignedTo">-</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-item-label">Created At</span>
+            <span class="meta-item-val" id="detailCreatedAt">-</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-item-label">Last Updated</span>
+            <span class="meta-item-val" id="detailUpdatedAt">-</span>
+          </div>
+        </div>
+
+        <!-- Description Section -->
+        <div class="detail-section">
+          <h4 class="detail-section-title">Description</h4>
+          <div class="detail-text-box" id="detailDescription"></div>
+        </div>
+
+        <!-- Steps to Reproduce -->
+        <div class="detail-section">
+          <h4 class="detail-section-title">Steps to Reproduce</h4>
+          <div class="detail-steps-box" id="detailSteps"></div>
+        </div>
+
+        <!-- Expected vs Actual Result Comparison -->
+        <div class="detail-comparison-grid">
+          <div class="comparison-card expected-card">
+            <div class="comp-header">
+              <svg class="icon text-emerald" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              <span>Expected Result</span>
+            </div>
+            <div class="comp-body" id="detailExpected"></div>
+          </div>
+
+          <div class="comparison-card actual-card">
+            <div class="comp-header">
+              <svg class="icon text-critical" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" x2="12" y1="8" y2="12"/>
+                <line x1="12" x2="12.01" y1="16" y2="16"/>
+              </svg>
+              <span>Actual Observed Result</span>
+            </div>
+            <div class="comp-body" id="detailActual"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer detail-modal-footer">
+        <div class="detail-footer-left">
+          <button class="btn btn-danger btn-sm" id="detailDeleteBtn">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+            </svg>
+            <span>Delete Bug</span>
+          </button>
+        </div>
+        <div class="detail-footer-right">
+          <button class="btn btn-secondary" id="detailCopyIdBtn">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
+              <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+            </svg>
+            <span>Copy ID</span>
+          </button>
+          <button class="btn btn-secondary" id="detailEditBtn">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 20h9"/>
+              <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+            </svg>
+            <span>Edit Bug</span>
+          </button>
+          <button class="btn btn-primary" id="detailCloseBtn">Done</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- 3. DELETE CONFIRMATION MODAL -->
+  <div class="modal-overlay hidden" id="deleteConfirmModal">
+    <div class="modal-box modal-sm" role="dialog" aria-labelledby="deleteModalTitle" aria-modal="true">
+      <div class="modal-body text-center p-6">
+        <div class="danger-icon-badge">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+            <line x1="10" x2="10" y1="11" y2="17"/>
+            <line x1="14" x2="14" y1="11" y2="17"/>
+          </svg>
+        </div>
+        <h3 class="modal-title mt-4" id="deleteModalTitle">Delete Bug Report?</h3>
+        <p class="modal-subtitle mt-2">
+          Are you sure you want to permanently delete <strong id="deleteBugTargetId" class="text-white">BUG-XXXX</strong>?
+          This action will immediately remove the ticket from LocalStorage.
+        </p>
+        <div class="delete-preview-title" id="deleteBugTargetTitle">"Bug title"</div>
+      </div>
+      <div class="modal-footer flex-center">
+        <button class="btn btn-secondary" id="cancelDeleteBtn">Cancel</button>
+        <button class="btn btn-danger" id="confirmDeleteBtn">Delete Bug Ticket</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 4. TOAST NOTIFICATION STACK -->
+  <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Main JavaScript Application -->
+  <script src="script.js"></script>
+</body>
+</html>
